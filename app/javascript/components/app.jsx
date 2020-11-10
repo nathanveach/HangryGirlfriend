@@ -17,7 +17,6 @@ class App extends React.Component {
 	  const success = position => {
 	    const latitude = position.coords.latitude;
 	    const longitude = position.coords.longitude;
-	    console.log(latitude, longitude);
 	    this.setState({
 	      lat: latitude,
 	      lng: longitude,
@@ -64,22 +63,35 @@ class App extends React.Component {
 	render() {
 		const {businesses} = this.state.businesses;
 
-
 		const noRestaurants = (
 			<h4>PRESS DA BUTTON!!</h4>
 		);
-		let restaurantList;
+		// declare variables so they do not come up as undefined in initial render
+		let restaurantList,
+				randomBusiness;
+				arr = []
+
 		if (businesses) {
-			restaurantList = businesses.map((restaurant, index) => (
-	      <div key={index} className="col-md-6 col-lg-4">
-	        <div className="card mb-4">
-	          <div className="card-body">
-	            <h3 className="card-title text-center">{restaurant.name}</h3>
-	          </div>
-	        </div>
+			randomBusiness = businesses[Math.floor(Math.random() * businesses.length)];
+			arr.push(randomBusiness);
+			restaurantList = arr.map((restaurant, index) => (
+				<div className="card" key={index}>
+		      <ul className="list-unstyled">
+		      	<li className="media">
+		        	<img src={restaurant.image_url} className="custom-img img-thumbnail mr-3"/>
+		          <div className="media-body">
+		            <h3 className="text-center">{restaurant.name}</h3>
+		            <p><b>Rating: </b>{restaurant.rating}</p>
+		            <p><b>Price: </b>{restaurant.price}</p>
+		            <p><b>Phone #: </b>{restaurant.display_phone}</p>
+		            <p><b>Address: </b>{restaurant.location.display_address}</p>
+		          </div>
+		        </li>
+		      </ul>
 	      </div>
 	    ));
 	  }
+
 		
 
 		return (
@@ -90,7 +102,9 @@ class App extends React.Component {
 					<button type="submit">TEST</button>	
 				</form>
 				<div className="row">
-					{businesses == undefined ? noRestaurants : restaurantList}
+					<div className="col-md-8 offset-md-2">
+						{businesses == undefined ? noRestaurants : restaurantList}
+					</div>
 				</div>
 			</div>
 		);
