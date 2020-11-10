@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
 
-	root 'homepage#yelp'
+	root 'yelp#index'
+	post '/search', to: 'yelp#search'
 end
