@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactStars from 'react-rating-stars-component';
+import ReactStars from 'react-stars';
 
 
 class App extends React.Component {
@@ -56,6 +56,7 @@ class App extends React.Component {
 			lng,
 			term
 		};
+
 		const token = document.querySelector('meta[name="csrf-token"]').content;
 		fetch(url, {
 			method: "POST",
@@ -84,7 +85,9 @@ class App extends React.Component {
 		const {businesses} = this.state.businesses;
 
 		const noRestaurants = (
-			<h4 className="text-center">IS YOUR GIRL GETTING HANGRY?! QUICK PUSH THE EFFING BUTTON!!</h4>
+			<h4 className="text-center">IS YOUR GIRL GETTING HANGRY?! DON'T KNOW WHERE TO EAT!?! QUICK PUSH THE EFFING BUTTON!!
+				<br/><br/><br/><br/>
+			</h4>
 		);
 		// declare variables so they do not come up as undefined in initial render
 		let restaurantList,
@@ -96,16 +99,7 @@ class App extends React.Component {
 			randomBusiness = businesses[Math.floor(Math.random() * businesses.length)];
 			// react wont accept an objects as a react child? so I initialized an array to fill with one value to map over instead..
 			arr.push(randomBusiness);
-			const reactStars = (
-    	  <ReactStars
-			    value={randomBusiness.rating}
-			    count={5}
-			    size={24}
-					activeColor="#ffd700"
-			    isHalf={true}
-			    edit={false}
-			  />
-			);
+				
 			if (this.state.submitted){
 				restaurantList = arr.map((restaurant, index) => (
 					<div key={index}>
@@ -119,7 +113,14 @@ class App extends React.Component {
 										<a href={restaurant.url} className="btn card-title">
 				            	<h5 className="mt-2">{restaurant.name}</h5>
 				            </a>
-				             	{reactStars}
+						    	  <ReactStars
+									    value={restaurant.rating}
+									    count={5}
+									    size={24}
+											color2="#ffd700"
+									    half={true}
+									    edit={false}
+									  />
 				            <small className="text-muted ml-2">{restaurant.review_count} reviews </small>
 				            <small className="text-muted ml-3">{restaurant.price}</small>
 				            <p className="mt-2">{restaurant.display_phone}</p>
@@ -131,6 +132,10 @@ class App extends React.Component {
 			      </div>
 		      </div>
 		    ));
+			} else {
+		  	restaurantList = (
+		  		<div><br/><br/><h1 className="text-danger text-center">{this.state.term}</h1><br/><br/></div>
+		  	)
 			}
 	  }
 

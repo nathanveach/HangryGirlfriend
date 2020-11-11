@@ -1,1 +1,3 @@
-figure out y params aint slidin thru from react bish
+fix rating system
+
+shouldcomponentupdate might work...
