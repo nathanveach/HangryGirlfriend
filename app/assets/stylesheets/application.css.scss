@@ -18,11 +18,20 @@ $button-height: 40px;
 $button-width: 240px;
 $press-time: .4s;
 
+body {
+	background-color: #f2f2f2 !important;
+}
 
-
+.meme {
+	margin-top: 200px;
+}
 
 .custom-img {
-	width: 150px;
+	width: 125px;
+}
+
+.custom-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .red-button {
@@ -36,6 +45,11 @@ $press-time: .4s;
 	width: $button-width;
 	height: $button-height;
 	transform: translateX(-50%);
+
+	&:focus{
+		outline: none;
+	}
+	
 	
 	&::before{
 		content: '';
