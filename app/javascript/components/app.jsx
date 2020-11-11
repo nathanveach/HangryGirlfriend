@@ -96,7 +96,7 @@ class App extends React.Component {
 			        		<img src={restaurant.image_url} className="custom-img img-thumbnail mx-1 mt-5"/>
 			          </a>
 			          <div className="media-body ml-3">			          	
-									<a href={restaurant.url} className="btn">
+									<a href={restaurant.url} className="btn card-title">
 			            	<h5 className="mt-2">{restaurant.name}</h5>
 			            </a>
 			             	{reactStars}
@@ -113,6 +113,9 @@ class App extends React.Component {
 	    ));
 	  }
 
+	  const searchTerm = (
+	  	<div></div>
+	  	)
 		
 
 		return (
@@ -135,14 +138,11 @@ class App extends React.Component {
 					</div>	
 				</form>
 				<div className="meme text-center">
-					<img src="https://pics.me.me/when-you-try-talking-to-your-girl-while-shes-hungry-22638275.png" className="img-fluid my-1"/>
-					<img src="https://lh3.googleusercontent.com/proxy/_knmRgWj-HQRbhRJNSa6RmEOPSakQTIvjvQA6qgo27WtLb1NLnlHLjbSUo_a7N94euPVY3oofg08CnnxcY4R3tOOHNvcn4uKH9-XUhQB6CvzK7-2NNJpsSc0BFFqU0ahOis_zgP3kaY-wKM31_37q5nOK75yTg-Yu40" className="img-fluid my-1"/>
-					<img src="https://i.ytimg.com/vi/dwu8qM2RqnQ/hqdefault.jpg" className="img-fluid my-1"/>
-					<img src="https://i.pinimg.com/originals/06/37/89/063789a5a3acff3ad1417c68be01acf0.jpg" className="img-fluid my-1"/>
-					<img src="https://i.pinimg.com/originals/53/12/e3/5312e32cf54a04b35388583c335aeca8.jpg" className="img-fluid my-1"/>
-					<img src="" className="img-fluid"/>
-					<img src="" className="img-fluid"/>
-					<img src="" className="img-fluid"/>
+					<img src="http://www.quickmeme.com/img/5e/5e99f06c2025c8c1a05a6b9333068a3ff9962d182b21ba9f896d9c14d6011500.jpg" className="img-fluid my-1"/><br/>
+					<img src="https://i.pinimg.com/originals/06/37/89/063789a5a3acff3ad1417c68be01acf0.jpg" className="img-fluid my-1"/><br/>
+					<img src="https://i.ytimg.com/vi/dwu8qM2RqnQ/hqdefault.jpg" className="img-fluid my-1"/><br/>
+					<img src="https://pics.me.me/when-you-try-talking-to-your-girl-while-shes-hungry-22638275.png" className="img-fluid my-1"/><br/>
+					<img src="https://i.pinimg.com/originals/53/12/e3/5312e32cf54a04b35388583c335aeca8.jpg" className="img-fluid my-1"/><br/>					
 				</div>
 			</div>
 		);
