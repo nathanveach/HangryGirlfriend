@@ -8,8 +8,9 @@ class YelpController < ApplicationController
 		token = "Bearer " + yelp_key
 		lat = params[:lat]
 		lng = params[:lng]
+		term = params[:term]
 		time = Time.now.to_i + (30 * 60)
-		@response = HTTParty.get("https://api.yelp.com/v3/businesses/search?&term=restaurant&latitude=#{lat}&longitude=#{lng}&open_at=#{time}&limit=50",
+		@response = HTTParty.get("https://api.yelp.com/v3/businesses/search?&term=#{term}&latitude=#{lat}&longitude=#{lng}&open_at=#{time}&limit=50",
 				headers: { "Content-Type": "application/json",
 				"Authorization": token
 			}).body

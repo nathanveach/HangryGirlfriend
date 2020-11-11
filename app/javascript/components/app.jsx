@@ -8,9 +8,15 @@ class App extends React.Component {
 		this.state = {
 			lat: 0,
 			lng: 0,
-			businesses: []
+			businesses: [],
+			term: "restaurant",
+			count: 0,
+			submitted: false
 		};
+
 		this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onClick = this.onClick.bind(this);
 	}
 
 
@@ -25,20 +31,30 @@ class App extends React.Component {
 	  };
 
 	  const error = () => {
-	    console.log("Unable to retrieve your location");
+	    alert("Default location set to San Francisco.")
 	  };
 
 	  navigator.geolocation.getCurrentPosition(success, error);
 	}
 
+	onClick(){
+		this.setState({submitted: false})
+	}
+
+	onChange(event) {
+		this.setState({	[event.target.name]: event.target.value });
+	}
+
+
 	onSubmit(event) {
 		event.preventDefault();
 		const url = "/search";
-		const { lat, lng } = this.state;
+		const { lat, lng, term } = this.state;
 
 		const body = {
 			lat,
-			lng
+			lng,
+			term
 		};
 		const token = document.querySelector('meta[name="csrf-token"]').content;
 		fetch(url, {
@@ -55,7 +71,11 @@ class App extends React.Component {
 				}
 				throw new Error("Network response was not ok.");
 			})
-			.then(response => this.setState({businesses: response}))
+			.then(response => this.setState({
+										businesses: response,
+										submitted: true,
+										count: this.state.count += 1
+									}))
 			.catch(error => console.log(error.message));
 	}
 
@@ -86,35 +106,46 @@ class App extends React.Component {
 			    edit={false}
 			  />
 			);
-
-			restaurantList = arr.map((restaurant, index) => (
-				<div key={index}>
-					<div className="card custom-card border-dark">
-			      <ul className="list-unstyled">
-			      	<li className="media">
-			      		<a href={restaurant.url}>
-			        		<img src={restaurant.image_url} className="custom-img img-thumbnail mx-1 mt-5"/>
-			          </a>
-			          <div className="media-body ml-3">			          	
-									<a href={restaurant.url} className="btn card-title">
-			            	<h5 className="mt-2">{restaurant.name}</h5>
-			            </a>
-			             	{reactStars}
-			            <small className="text-muted ml-2">{restaurant.review_count} reviews </small>
-			            <small className="text-muted ml-3">{restaurant.price}</small>
-			            <p className="mt-2">{restaurant.display_phone}</p>
-			            <p>{restaurant.location.display_address[0]}.<br/>
-			            {restaurant.location.display_address[restaurant.location.display_address.length - 1]}</p>
-			          </div>
-			        </li>
-			      </ul>
+			if (this.state.submitted){
+				restaurantList = arr.map((restaurant, index) => (
+					<div key={index}>
+						<div className="card custom-card border-dark">
+				      <ul className="list-unstyled">
+				      	<li className="media">
+				      		<a href={restaurant.url}>
+				        		<img src={restaurant.image_url} className="custom-img img-thumbnail mx-1 mt-5"/>
+				          </a>
+				          <div className="media-body ml-3">			          	
+										<a href={restaurant.url} className="btn card-title">
+				            	<h5 className="mt-2">{restaurant.name}</h5>
+				            </a>
+				             	{reactStars}
+				            <small className="text-muted ml-2">{restaurant.review_count} reviews </small>
+				            <small className="text-muted ml-3">{restaurant.price}</small>
+				            <p className="mt-2">{restaurant.display_phone}</p>
+				            <p>{restaurant.location.display_address[0]}.<br/>
+				            {restaurant.location.display_address[restaurant.location.display_address.length - 1]}</p>
+				          </div>
+				        </li>
+				      </ul>
+			      </div>
 		      </div>
-	      </div>
-	    ));
+		    ));
+			}
 	  }
 
 	  const searchTerm = (
-	  	<div></div>
+	  	<div className="form-group">
+	  		<label className="font-weight-bold">Is she really being picky and hangry?? Try a search term:</label>
+	  		<input 
+	  			type="text"
+	  			className="form-control"
+	  			name="term"
+	  			placeholder="Sushi.. Pizza.. Mexican.. Goodluck bro!!"
+	  			onChange={this.onChange}
+	  			onClick={this.onClick}
+	  			/>
+	  	</div>
 	  	)
 		
 
@@ -128,14 +159,13 @@ class App extends React.Component {
 					<input type="hidden" value={this.state.lng} name="lng"/>				
 					<div className="row mt-5">
 						<div className="col-md-6 offset-md-3">
-							{businesses == undefined ? noRestaurants : restaurantList}
-						</div>
-					</div>
-					<div className="row">
-						<div className="col">
-							<button type="submit" className="red-button mt-5"></button>
+								{businesses == undefined ? noRestaurants : restaurantList}
+							<div className="mt-3">
+							  {this.state.count > 2 ? searchTerm : null}
+							</div>
 						</div>
 					</div>	
+						<button type="submit" className="red-button mt-5"></button>
 				</form>
 				<div className="meme text-center">
 					<img src="http://www.quickmeme.com/img/5e/5e99f06c2025c8c1a05a6b9333068a3ff9962d182b21ba9f896d9c14d6011500.jpg" className="img-fluid my-1"/><br/>
