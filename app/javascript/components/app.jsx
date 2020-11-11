@@ -126,8 +126,9 @@ class App extends React.Component {
 				            	<a href={"tel:" + restaurant.phone} className="unstyled">{restaurant.display_phone}</a><br/>
 				            </div>
 				            <a href={"https://maps.google.com/?q=" + restaurant.alias } className="unstyled">
-				            	<p>{restaurant.location.display_address[0]}.<br/>
-				            {restaurant.location.display_address[restaurant.location.display_address.length - 1]}</p>
+				            	{restaurant.location.display_address[0]}.<br/>
+						        	{restaurant.location.display_address[restaurant.location.display_address.length - 1]}<br/>
+					            <small className="text-muted ml-2">{(restaurant.distance * .000621371).toFixed(2)} miles away</small>
 				            </a>
 				          </div>
 				        </li>
@@ -144,7 +145,7 @@ class App extends React.Component {
 
 	  const searchTerm = (
 	  	<div className="form-group">
-	  		<label className="font-weight-bold">Is she really being picky and hangry?? Try a search term:</label>
+	  		<label className="font-weight-bold">Is she really being PICKY and HANGRY?? Try a search term:</label>
 	  		<input 
 	  			type="text"
 	  			className="form-control"
@@ -159,13 +160,14 @@ class App extends React.Component {
 
 		return (
 			<div className="container">
-				<div className="my-4 text-center">
+				<div className="my-3 text-center">
 					<img src="https://i.ibb.co/JK14mVn/image-2.png" className="img-fluid"/>
+					<hr className="w-75 bg-danger custom-hr"/>
 				</div>
 				<form onSubmit={this.onSubmit}>
 					<input type="hidden" value={this.state.lat} name="lat"/>
 					<input type="hidden" value={this.state.lng} name="lng"/>				
-					<div className="row mt-5">
+					<div className="row mt-2">
 						<div className="col-md-6 offset-md-3">
 								{businesses == undefined ? noRestaurants : restaurantList}
 							<div className="mt-3">
