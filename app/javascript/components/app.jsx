@@ -111,17 +111,17 @@ class App extends React.Component {
 				          <div className="media-body ml-3">			          	
 										<a href={restaurant.url} className="btn card-title">
 				            	<h5 className="mt-2">{restaurant.name}</h5>
+							    	  <ReactStars
+										    value={restaurant.rating}
+										    count={5}
+										    size={24}
+												color2="#ffd700"
+										    half={true}
+										    edit={false}
+										  />
+					            <small className="text-muted ml-2">{restaurant.review_count} reviews </small>
+					            <small className="text-muted ml-3">{restaurant.price}</small><br/>
 				            </a>
-						    	  <ReactStars
-									    value={restaurant.rating}
-									    count={5}
-									    size={24}
-											color2="#ffd700"
-									    half={true}
-									    edit={false}
-									  />
-				            <small className="text-muted ml-2">{restaurant.review_count} reviews </small>
-				            <small className="text-muted ml-3">{restaurant.price}</small><br/>
 				            <div className="my-2">
 				            	<a href={"tel:" + restaurant.phone} className="unstyled">{restaurant.display_phone}</a><br/>
 				            </div>
@@ -160,7 +160,7 @@ class App extends React.Component {
 		return (
 			<div className="container">
 				<div className="my-4 text-center">
-					<img src="https://i.ibb.co/x2XH4s1/image-1.png" className="img-fluid"/>
+					<img src="https://i.ibb.co/JK14mVn/image-2.png" className="img-fluid"/>
 				</div>
 				<form onSubmit={this.onSubmit}>
 					<input type="hidden" value={this.state.lat} name="lat"/>
