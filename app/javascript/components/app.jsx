@@ -99,7 +99,6 @@ class App extends React.Component {
 			randomBusiness = businesses[Math.floor(Math.random() * businesses.length)];
 			// react wont accept an objects as a react child? so I initialized an array to fill with one value to map over instead..
 			arr.push(randomBusiness);
-				
 			if (this.state.submitted){
 				restaurantList = arr.map((restaurant, index) => (
 					<div key={index}>
@@ -122,10 +121,14 @@ class App extends React.Component {
 									    edit={false}
 									  />
 				            <small className="text-muted ml-2">{restaurant.review_count} reviews </small>
-				            <small className="text-muted ml-3">{restaurant.price}</small>
-				            <p className="mt-2">{restaurant.display_phone}</p>
-				            <p>{restaurant.location.display_address[0]}.<br/>
+				            <small className="text-muted ml-3">{restaurant.price}</small><br/>
+				            <div className="my-2">
+				            	<a href={"tel:" + restaurant.phone} className="unstyled">{restaurant.display_phone}</a><br/>
+				            </div>
+				            <a href={"https://maps.google.com/?q=" + restaurant.alias } className="unstyled">
+				            	<p>{restaurant.location.display_address[0]}.<br/>
 				            {restaurant.location.display_address[restaurant.location.display_address.length - 1]}</p>
+				            </a>
 				          </div>
 				        </li>
 				      </ul>
