@@ -9,7 +9,7 @@ class App extends React.Component {
 			lat: 0,
 			lng: 0,
 			businesses: [],
-			term: "restaurant",
+			term: "food",
 			count: 0,
 			submitted: false
 		};
