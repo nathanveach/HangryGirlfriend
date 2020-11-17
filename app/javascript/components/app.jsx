@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactStars from 'react-stars';
+import SearchBar from './SearchBar';
 
 
 class App extends React.Component {
@@ -143,21 +144,6 @@ class App extends React.Component {
 			}
 	  }
 
-	  const searchTerm = (
-	  	<div className="form-group">
-	  		<label className="font-weight-bold">Is she really being PICKY and HANGRY?? Try a search term:</label>
-	  		<input 
-	  			type="text"
-	  			className="form-control"
-	  			name="term"
-	  			placeholder="Sushi.. Pizza.. Mexican.. Goodluck bro!!"
-	  			onChange={this.onChange}
-	  			onClick={this.onClick}
-	  			/>
-	  	</div>
-	  	)
-		
-
 		return (
 			<div className="container">
 				<div className="my-3 text-center">
@@ -171,7 +157,7 @@ class App extends React.Component {
 						<div className="col-md-6 offset-md-3">
 								{businesses == undefined ? noRestaurants : restaurantList}
 							<div className="mt-3">
-							  {this.state.count > 2 ? searchTerm : null}
+							  {this.state.count > 2 ? <SearchBar onChange={this.onChange} onClick={this.onClick} /> : null}
 							</div>
 						</div>
 					</div>	
