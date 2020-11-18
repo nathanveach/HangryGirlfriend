@@ -3,6 +3,8 @@ import ReactStars from 'react-stars';
 import SearchBar from './SearchBar';
 // the {} are required around Memes because it's exported without default
 import { Memes } from './Memes';
+// Title doesn't need {} because it's exported with default
+import Title from './Title';
 
 
 class App extends React.Component {
@@ -148,10 +150,7 @@ class App extends React.Component {
 
 		return (
 			<div className="container">
-				<div className="my-3 text-center">
-					<img src="https://i.ibb.co/JK14mVn/image-2.png" className="img-fluid"/>
-					<hr className="w-75 bg-danger custom-hr"/>
-				</div>
+				<Title />
 				<form onSubmit={this.onSubmit}>
 					<input type="hidden" value={this.state.lat} name="lat"/>
 					<input type="hidden" value={this.state.lng} name="lng"/>				
