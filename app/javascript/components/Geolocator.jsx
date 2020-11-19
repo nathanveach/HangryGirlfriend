@@ -20,6 +20,6 @@ const Geolocator = props => {
 	}, []);
 
 	return(null);
-};
+}
 
-export default Geolocator
+export default Geolocator;
