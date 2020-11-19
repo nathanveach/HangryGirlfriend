@@ -5,6 +5,7 @@ import SearchBar from './SearchBar';
 import { Memes } from './Memes';
 // Title doesn't need {} because it's exported with default
 import Title from './Title';
+import Geolocator from './Geolocator';
 
 
 class App extends React.Component {
@@ -22,24 +23,14 @@ class App extends React.Component {
 		this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.setLocation = this.setLocation.bind(this);
 	}
 
-
-	componentDidMount() {
-	  const success = position => {
-	    const latitude = position.coords.latitude;
-	    const longitude = position.coords.longitude;
-	    this.setState({
-	      lat: latitude,
-	      lng: longitude
-	    });
-	  };
-
-	  const error = () => {
-	    alert("Default location set to San Francisco.")
-	  };
-
-	  navigator.geolocation.getCurrentPosition(success, error);
+	setLocation(lat, lng){
+		this.setState({
+			lat: lat,
+			lng: lng
+		})
 	}
 
 	onClick(){
@@ -151,6 +142,7 @@ class App extends React.Component {
 		return (
 			<div className="container">
 				<Title />
+				<Geolocator setLocation={this.setLocation} />
 				<form onSubmit={this.onSubmit}>
 					<input type="hidden" value={this.state.lat} name="lat"/>
 					<input type="hidden" value={this.state.lng} name="lng"/>				
