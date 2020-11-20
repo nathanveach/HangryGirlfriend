@@ -2,6 +2,7 @@ import React from 'react';
 import ReactStars from 'react-stars';
 import Geolocator from './Geolocator';
 import SearchBar from './SearchBar';
+import AllBusinesses from './AllBusinesses';
 
 
 class HiddenForm extends React.Component{
@@ -15,7 +16,7 @@ class HiddenForm extends React.Component{
 			count: 0,
 			submitted: false
 		};
-		
+
 		this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -139,7 +140,7 @@ class HiddenForm extends React.Component{
 				<input type="hidden" value={this.state.lng} name="lng"/>				
 				<div className="row mt-2">
 					<div className="col-md-6 offset-md-3">
-							{businesses == undefined ? noRestaurants : restaurantList}
+							{businesses == undefined ? noRestaurants : <AllBusinesses businesses={businesses}/>}
 						<div className="mt-3">
 						  {this.state.count > 2 ? <SearchBar onChange={this.onChange} onClick={this.onClick} /> : null}
 						</div>
