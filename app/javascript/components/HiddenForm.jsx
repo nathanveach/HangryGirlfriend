@@ -3,6 +3,8 @@ import ReactStars from 'react-stars';
 import Geolocator from './Geolocator';
 import SearchBar from './SearchBar';
 import AllBusinesses from './AllBusinesses';
+import ShowBusinesses from './ShowBusinesses';
+import ShowTerm from './ShowTerm';
 
 
 class HiddenForm extends React.Component{
@@ -14,7 +16,7 @@ class HiddenForm extends React.Component{
 			businesses: [],
 			term: "food",
 			count: 0,
-			submitted: false
+			submitted: true
 		};
 
 		this.onSubmit = this.onSubmit.bind(this);
@@ -73,74 +75,16 @@ class HiddenForm extends React.Component{
 	}
 
 	render(){
-		const {businesses} = this.state.businesses;
 
-		const noRestaurants = (
-			<h4 className="text-center">IS YOUR GIRL GETTING HANGRY?! DON'T KNOW WHERE TO EAT!?! QUICK PUSH THE EFFING BUTTON!!
-				<br/><br/><br/><br/>
-			</h4>
-		);
-		// declare variables so they do not come up as undefined in initial render
-		let restaurantList,
-				randomBusiness,
-				arr = [];
-
-		if (businesses) {
-			// this is how you random select from an array with javascript
-			randomBusiness = businesses[Math.floor(Math.random() * businesses.length)];
-			// react wont accept an objects as a react child? so I initialized an array to fill with one value to map over instead..
-			arr.push(randomBusiness);
-			if (this.state.submitted){
-				restaurantList = arr.map((restaurant, index) => (
-					<div key={index}>
-						<div className="card custom-card border-dark">
-				      <ul className="list-unstyled">
-				      	<li className="media">
-				      		<a href={restaurant.url}>
-				        		<img src={restaurant.image_url} className="custom-img img-thumbnail mx-1 mt-5"/>
-				          </a>
-				          <div className="media-body ml-3">			          	
-										<a href={restaurant.url} className="btn card-title">
-				            	<h5 className="mt-2">{restaurant.name}</h5>
-							    	  <ReactStars
-										    value={restaurant.rating}
-										    count={5}
-										    size={24}
-												color2="#ffd700"
-										    half={true}
-										    edit={false}
-										  />
-					            <small className="text-muted ml-2">{restaurant.review_count} reviews </small>
-					            <small className="text-muted ml-3">{restaurant.price}</small><br/>
-				            </a>
-				            <div className="my-2">
-				            	<a href={"tel:" + restaurant.phone} className="unstyled">{restaurant.display_phone}</a><br/>
-				            </div>
-				            <a href={"https://maps.google.com/?q=" + restaurant.alias } className="unstyled">
-				            	{restaurant.location.display_address[0]}.<br/>
-						        	{restaurant.location.display_address[restaurant.location.display_address.length - 1]}<br/>
-					            <small className="text-muted ml-2">{(restaurant.distance * .000621371).toFixed(2)} miles away</small>
-				            </a>
-				          </div>
-				        </li>
-				      </ul>
-			      </div>
-		      </div>
-		    ));
-			} else {
-		  	restaurantList = (
-		  		<div><br/><br/><h1 className="text-danger text-center">{this.state.term}</h1><br/><br/></div>
-		  	)
-			}
-	  }
+		 
 		return(
 			<form onSubmit={this.onSubmit}>
 				<Geolocator setLocation={this.setLocation} />
 				<input type="hidden" value={this.state.lat} name="lat"/>
-				<input type="hidden" value={this.state.lng} name="lng"/>				
+				<input type="hidden" value={this.state.lng} name="lng"/>			
 				<div className="row mt-2">
 					<div className="col-md-6 offset-md-3">
-							{businesses == undefined ? noRestaurants : <AllBusinesses businesses={businesses}/>}
+						{ this.state.submitted ? <ShowBusinesses businesses={this.state.businesses} /> : <ShowTerm term={this.state.term} />}
 						<div className="mt-3">
 						  {this.state.count > 2 ? <SearchBar onChange={this.onChange} onClick={this.onClick} /> : null}
 						</div>
@@ -153,3 +97,4 @@ class HiddenForm extends React.Component{
 }
 
 export default HiddenForm;
+// if this state == submitted ? <ShowBusinesses> : <showTerm>	
