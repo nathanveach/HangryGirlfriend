@@ -16,7 +16,8 @@ class HiddenForm extends React.Component{
 			businesses: [],
 			term: "food",
 			count: 0,
-			submitted: true
+			submitted: true,
+			showAll: false
 		};
 
 		this.onSubmit = this.onSubmit.bind(this);
@@ -75,26 +76,28 @@ class HiddenForm extends React.Component{
 	}
 
 	render(){
-
-		 
 		return(
-			<form onSubmit={this.onSubmit}>
-				<Geolocator setLocation={this.setLocation} />
-				<input type="hidden" value={this.state.lat} name="lat"/>
-				<input type="hidden" value={this.state.lng} name="lng"/>			
-				<div className="row mt-2">
-					<div className="col-md-6 offset-md-3">
-						{ this.state.submitted ? <ShowBusinesses businesses={this.state.businesses} /> : <ShowTerm term={this.state.term} />}
-						<div className="mt-3">
-						  {this.state.count > 2 ? <SearchBar onChange={this.onChange} onClick={this.onClick} /> : null}
+			<div>
+				<form onSubmit={this.onSubmit}>
+					<Geolocator setLocation={this.setLocation} />
+					<input type="hidden" value={this.state.lat} name="lat"/>
+					<input type="hidden" value={this.state.lng} name="lng"/>			
+					<div className="row mt-2">
+						<div className="col-md-6 offset-md-3">
+							{ this.state.submitted ? <ShowBusinesses businesses={this.state.businesses} showAll={this.state.showAll} /> : <ShowTerm term={this.state.term} />}
+							<div className="mt-3">
+							  {this.state.count > 2 ? <SearchBar onChange={this.onChange} onClick={this.onClick} /> : null}
+							</div>
 						</div>
-					</div>
-				</div>	
-					<button type="submit" className="red-button mt-5"></button>
-			</form>
+					</div>	
+						<button type="submit" className="red-button mt-5"></button>
+				</form>
+				<div className="text-center">
+					<button className="btn btn-link emergency-link" onClick={()=>this.setState({showAll: true})}>IN CASE OF EMERGENCY HIT THIS LINK!!! (SHOW ALL)</button>
+				</div>
+			</div>
 		);
 	}
 }
 
 export default HiddenForm;
-// if this state == submitted ? <ShowBusinesses> : <showTerm>	
