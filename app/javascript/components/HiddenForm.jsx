@@ -87,7 +87,7 @@ class HiddenForm extends React.Component{
 
 	render(){
 		return(
-			<div className="mb-100">
+			<div className="container mb-100">
 				<Title onClick={()=>this.setState({businesses: [], count: 0})} />
 				<form onSubmit={this.onSubmit}>
 					<Geolocator setLocation={this.setLocation} />
