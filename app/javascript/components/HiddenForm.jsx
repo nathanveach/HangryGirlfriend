@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactStars from 'react-stars';
+import Title from './Title';
 import Geolocator from './Geolocator';
 import SearchBar from './SearchBar';
 import AllBusinesses from './AllBusinesses';
 import ShowBusinesses from './ShowBusinesses';
 import ShowTerm from './ShowTerm';
-
+import ShowAllLink from './ShowAllLink';
+// the {} are required around Memes because it's exported without default
+import { Memes } from './Memes';
 
 class HiddenForm extends React.Component{
 	constructor(props) {
@@ -24,6 +27,7 @@ class HiddenForm extends React.Component{
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
     this.setLocation = this.setLocation.bind(this);
+    this.showAll = this.showAll.bind(this);
 	}
 
 	setLocation(lat, lng){
@@ -31,6 +35,11 @@ class HiddenForm extends React.Component{
 			lat: lat,
 			lng: lng
 		})
+	}
+
+	showAll(){
+		this.setState({showAll: true})
+		window.scrollTo(0, 0)
 	}
 
 	onChange(event) {
@@ -70,14 +79,16 @@ class HiddenForm extends React.Component{
 			.then(response => this.setState({
 										businesses: response,
 										submitted: true,
-										count: this.state.count += 1
+										count: this.state.count += 1,
+										showAll: false
 									}))
 			.catch(error => console.log(error.message));
 	}
 
 	render(){
 		return(
-			<div>
+			<div className="mb-100">
+				<Title onClick={()=>this.setState({businesses: [], count: 0})} />
 				<form onSubmit={this.onSubmit}>
 					<Geolocator setLocation={this.setLocation} />
 					<input type="hidden" value={this.state.lat} name="lat"/>
@@ -92,9 +103,8 @@ class HiddenForm extends React.Component{
 					</div>	
 						<button type="submit" className="red-button mt-5"></button>
 				</form>
-				<div className="text-center">
-					<button className="btn btn-link emergency-link" onClick={()=>this.setState({showAll: true})}>IN CASE OF EMERGENCY HIT THIS LINK!!! (SHOW ALL)</button>
-				</div>
+				{ this.state.submitted && this.state.count > 0 && !(this.state.showAll) ? <ShowAllLink onClick={this.showAll} /> : null }
+				{ this.state.submitted && this.state.count == 0 ? <Memes /> : null }
 			</div>
 		);
 	}

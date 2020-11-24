@@ -3,8 +3,8 @@ import ReactStars from 'react-stars';
 
 
 const AllBusinesses = (props) => {
-	const allBusinesses = props.businesses.map ((restaurant) => (
-		<div className="my-3">
+	const allBusinesses = props.businesses.map ((restaurant, index) => (
+		<div className="my-3" key={index}>
 			<div className="card custom-card border-dark">
 	      <ul className="list-unstyled">
 	      	<li className="media">
