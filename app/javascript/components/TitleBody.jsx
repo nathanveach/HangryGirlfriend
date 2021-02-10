@@ -1,11 +1,16 @@
-import React from 'react';
+import React from "react";
 
 const TitleBody = () => {
-	return(
-		<h4 className="text-center">
-			<br/>IS YOUR GIRL GETTING HANGRY?! DON'T KNOW WHERE TO EAT!?! QUICK PUSH THE BUTTON!!!  <br/>👇<br/><br/>
-		</h4>
-	);
-}
+  return (
+    <h4 className="text-center">
+      <br />
+      IS YOUR GIRL GETTING HANGRY?! DON'T KNOW WHERE TO EAT!?! QUICK PUSH THE
+      BUTTON!!! <br />
+      👇
+      <br />
+      <br />
+    </h4>
+  );
+};
 
 export default TitleBody;
