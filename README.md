@@ -1,4 +1,4 @@
-Hangry Girlfriend 👿
+# Hangry Girlfriend 👿
 
 https://hangrygirlfriend.herokuapp.com/
 
@@ -11,4 +11,3 @@ Rails controller takes users coordinates and makes a call to Yelp's fusion API f
 Rails API handles the response and renders it as a JSON object, which is easily parsed with React.
 
 Using Javascript and CSS a business is randomly selected and displayed nicely on the mobile optimized front end.
-
